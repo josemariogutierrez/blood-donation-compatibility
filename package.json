@@ -1,0 +1,14 @@
+{
+  "name": "blood-donation",
+  "version": "1.0.0",
+  "description": "Get blood compatibility",
+  "main": "blood-donation.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jose Mario Gutierrez",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
