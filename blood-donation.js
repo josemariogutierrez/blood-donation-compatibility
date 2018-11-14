@@ -15,10 +15,10 @@ const chart = {
 
 axios.get('https://jsconf.admios.com/blood-types')
     .then((resp) => {
-        answer = getBloodCompatibility(resp.data)
-        console.log(resp.data);
-        console.log(answer);
-        
+        const token = resp.headers.authorization
+        const result = resp.data
+        console.log(token, result);
+        sendAnswer(getBloodCompatibility(result), {headers: {"Authorization": token}})
     });
 
 function checkIfCanDonate(chart, donorBlood, doneeBlood){
@@ -54,3 +54,18 @@ function getBloodCompatibility(donatorsList){
     
     return canDonateTo;
 }
+
+function sendAnswer(data, opts) {
+    axios
+    .post('https://jsconf.admios.com/blood-types', data, opts)
+    .then(function(resp) {
+        if (resp.status !== 200) {
+            const token = resp.headers.authorization
+            const result = resp.data
+            sendAnswer(getBloodCompatibility(result), {headers: {"Authorization": token}})
+        } else {
+            console.log(resp.status)
+            console.log(resp.data)
+        }
+    });
+  }
